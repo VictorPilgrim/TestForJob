@@ -1,0 +1,16 @@
+        // изменить сортировку
+        driver.findElement(By.xpath("//*[contains(text(),'по цене')]")).click();
+        TimeUnit.SECONDS.sleep(10);
+
+        // поиск устройства
+        for (;;) {
+            String pageText = driver.findElement(By.tagName("body")).getText();
+            if (!pageText.contains(extractedName)) {
+                driver.findElement(By.xpath("//*[@data-auto='pagination-next']")).click();
+                new WebDriverWait(driver, Duration.ofSeconds(5)).until(
+                        ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Показать ещё')]")));
+                ;
+            } else
+                break;
+        }
+
